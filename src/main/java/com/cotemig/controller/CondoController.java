@@ -1,4 +1,4 @@
-package com.cotemig;
+package com.cotemig.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by matheus.elias on 10/31/16.
  */
 @Controller
-public class GreetingController {
+public class CondoController {
 
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
