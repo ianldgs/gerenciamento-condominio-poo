@@ -3,8 +3,10 @@ package com.cotemig.controller;
 import com.cotemig.dao.FeeDAOImpl;
 import com.cotemig.model.Fee;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,13 +23,14 @@ import java.util.Calendar;
 @Controller
 public class FeeController {
 
-    @RequestMapping("/fees")
-    public String fee() {
-
+    @GetMapping("/fees")
+    public String feeForm(Model model) {
+        model.addAttribute("fee", new Fee());
+        return "fee";
     }
 
     @PostMapping("/fees/pay")
-    public void handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public void feeSubmit(@RequestParam("file") MultipartFile file, @ModelAttribute Fee fee) {
         try {
             InputStream inputStream = file.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -38,8 +41,6 @@ public class FeeController {
                 String cpfDweller = fileData.substring(14, 25);
                 String monthYear = fileData.substring(26, 32);
                 double value = Double.parseDouble(fileData.substring(33, 41));
-
-                Fee fee = new Fee();
 
                 fee.setValue(value);
                 fee.setCode(fileData);
