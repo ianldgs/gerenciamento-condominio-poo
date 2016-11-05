@@ -1,17 +1,46 @@
 package com.cotemig.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by matheus.elias on 10/23/16.
  */
+@Entity
+@Table(name = "fees")
+@SequenceGenerator(name="FEE_SEQUENCE", sequenceName="FEE_SEQUENCE", allocationSize=1, initialValue=0)
 public class Fee {
+    //region attributes
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="FEE_SEQUENCE")
+    private int id;
+
+    @Column(nullable = false)
     private double value;
+
+    @Temporal(TemporalType.DATE)
     private Date date;
-    private String code;
-    private boolean paid;
-    private String cpfDweller;
-    private String idCondo;
+
+    @Column(nullable = false)
+    private String code; //TODO: que isso?
+
+    @Column(nullable = false)
+    private boolean paid = false;
+
+    @ManyToOne(targetEntity = Resident.class)
+    private Resident resident;
+
+    @ManyToOne(targetEntity = Condo.class)
+    private Condo condo;
+
+    //endregion
+
+    //region getters/setters
+
+    public int getId() {
+        return id;
+    }
 
     public double getValue() {
         return value;
@@ -41,23 +70,25 @@ public class Fee {
         return paid;
     }
 
-    public void setPaid(boolean open) {
-        this.paid = open;
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
-    public String getCpfDweller() {
-        return cpfDweller;
+    public Resident getResident() {
+        return resident;
     }
 
-    public void setCpfDweller(String cpfDweller) {
-        this.cpfDweller = cpfDweller;
+    public void setResident(Resident resident) {
+        this.resident = resident;
     }
 
-    public String getIdCondo() {
-        return idCondo;
+    public Condo getCondo() {
+        return condo;
     }
 
-    public void setIdCondo(String idCondo) {
-        this.idCondo = idCondo;
+    public void setCondo(Condo condo) {
+        this.condo = condo;
     }
+
+    //endregion
 }

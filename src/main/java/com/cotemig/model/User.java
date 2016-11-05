@@ -1,38 +1,42 @@
 package com.cotemig.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Matheus on 22/10/2016.
  */
 
 @Entity
-@Table(name="user")
+@Table(name="users")
+@SequenceGenerator(name="USER_SEQUENCE", sequenceName="USER_SEQUENCE", allocationSize=1, initialValue=0)
 public class User {
-    private String cpf;
-    private String name;
-    private String password;
-    private String idCondo;
+    //region attributes
 
     @Id
-    @Column(name="id")
-    public String getCpf() {
-        return cpf;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="USER_SEQUENCE")
+    private int id;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    //endregion
+
+    //region getters/setters
+
+    public int getId() {
+        return id;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public String getEmail() {
+        return email;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -42,4 +46,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    //endregion
 }
