@@ -22,6 +22,9 @@ public class Condo {
     @Column(nullable = false)
     private String name;
 
+    @OneToMany(targetEntity = Resident.class)
+    private List<Resident> residents;
+
     @OneToMany(targetEntity = Fee.class)
     private List<Fee> fees;
 
@@ -47,6 +50,14 @@ public class Condo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Resident> getResidents() {
+        return residents;
+    }
+
+    public void setResidents(List<Resident> residents) {
+        this.residents = residents;
     }
 
     public List<Fee> getFees() {
