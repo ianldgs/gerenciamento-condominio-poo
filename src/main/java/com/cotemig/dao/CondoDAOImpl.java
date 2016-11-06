@@ -1,8 +1,10 @@
 package com.cotemig.dao;
 
 import com.cotemig.model.Condo;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -38,17 +40,25 @@ public class CondoDAOImpl implements CondoDAO {
     }
 
     @Override
-    public Condo getCondoById(int id) {
+    public Condo getCondoByCnpj(String cnpj) {
         Session session = this.sessionFactory.getCurrentSession();
-        Condo condo = (Condo) session.load(Condo.class, new Integer(id));
+
+        Criteria criteria = session.createCriteria(Condo.class);
+        criteria.add(Restrictions.eq("cnpj", cnpj));
+
+        Condo condo = (Condo) criteria.uniqueResult();
 
         return condo;
     }
 
     @Override
-    public void removeCondo(int id) {
+    public void removeCondo(String cnpj) {
         Session session = this.sessionFactory.getCurrentSession();
-        Condo condo = (Condo) session.load(Condo.class, new Integer(id));
+
+        Criteria criteria = session.createCriteria(Condo.class);
+        criteria.add(Restrictions.eq("cnpj", cnpj));
+
+        Condo condo = (Condo) criteria.uniqueResult();
 
         if(condo != null){
             session.delete(condo);

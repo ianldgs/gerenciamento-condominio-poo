@@ -11,6 +11,6 @@ public interface ResidentDAO {
     public void addResident(Resident resident);
     public void updateResident(Resident resident);
     public List<Resident> listResident();
-    public Resident getResidentById(int id);
-    public void removeResident(int id);
+    public Resident getResidentByCpf(String cpf);
+    public void removeResident(String cpf);
 }

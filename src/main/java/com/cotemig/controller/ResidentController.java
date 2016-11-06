@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ResidentController {
 
-    @RequestMapping("/dweller")
-    public String dweller() {
+    @RequestMapping("/resident")
+    public String resident() {
 
     }
 }

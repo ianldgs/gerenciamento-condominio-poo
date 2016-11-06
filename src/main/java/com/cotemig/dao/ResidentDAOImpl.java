@@ -1,8 +1,10 @@
 package com.cotemig.dao;
 
 import com.cotemig.model.Resident;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -38,17 +40,25 @@ public class ResidentDAOImpl implements ResidentDAO {
     }
 
     @Override
-    public Resident getResidentById(int id) {
+    public Resident getResidentByCpf(String cpf) {
         Session session = this.sessionFactory.getCurrentSession();
-        Resident resident = (Resident) session.load(Resident.class, new Integer(id));
+
+        Criteria criteria = session.createCriteria(Resident.class);
+        criteria.add(Restrictions.eq("cpf", cpf));
+
+        Resident resident = (Resident) criteria.uniqueResult();
 
         return resident;
     }
 
     @Override
-    public void removeResident(int id) {
+    public void removeResident(String cpf) {
         Session session = this.sessionFactory.getCurrentSession();
-        Resident resident = (Resident) session.load(Resident.class, new Integer(id));
+
+        Criteria criteria = session.createCriteria(Resident.class);
+        criteria.add(Restrictions.eq("cpf", cpf));
+
+        Resident resident = (Resident) criteria.uniqueResult();
 
         if(resident != null){
             session.delete(resident);

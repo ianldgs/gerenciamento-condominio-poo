@@ -11,6 +11,6 @@ public interface CondoDAO {
     public void addCondo(Condo condo);
     public void updateCondo(Condo condo);
     public List<Condo> listCondos();
-    public Condo getCondoById(int id);
-    public void removeCondo(int id);
+    public Condo getCondoByCnpj(String Cnpj);
+    public void removeCondo(String Cnpj);
 }
