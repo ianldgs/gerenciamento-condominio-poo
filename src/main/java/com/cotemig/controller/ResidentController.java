@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-public class DwellerController {
+public class ResidentController {
 
     @RequestMapping("/dweller")
     public String dweller() {
