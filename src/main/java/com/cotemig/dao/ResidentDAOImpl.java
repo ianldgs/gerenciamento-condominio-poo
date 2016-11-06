@@ -1,6 +1,6 @@
 package com.cotemig.dao;
 
-import com.cotemig.model.Resident;
+import com.cotemig.models.Resident;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

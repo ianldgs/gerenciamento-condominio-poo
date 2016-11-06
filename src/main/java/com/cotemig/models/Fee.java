@@ -1,4 +1,4 @@
-package com.cotemig.model;
+package com.cotemig.models;
 
 import javax.persistence.*;
 import java.util.Date;

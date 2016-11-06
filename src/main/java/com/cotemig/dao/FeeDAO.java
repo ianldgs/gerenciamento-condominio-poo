@@ -1,6 +1,6 @@
 package com.cotemig.dao;
 
-import com.cotemig.model.Fee;
+import com.cotemig.models.Fee;
 
 import java.util.List;
 

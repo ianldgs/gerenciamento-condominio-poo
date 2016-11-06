@@ -1,6 +1,6 @@
 package com.cotemig.dao;
 
-import com.cotemig.model.Resident;
+import com.cotemig.models.Resident;
 
 import java.util.List;
 

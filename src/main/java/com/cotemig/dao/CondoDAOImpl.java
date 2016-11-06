@@ -1,6 +1,6 @@
 package com.cotemig.dao;
 
-import com.cotemig.model.Condo;
+import com.cotemig.models.Condo;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

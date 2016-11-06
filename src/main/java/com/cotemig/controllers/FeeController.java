@@ -1,8 +1,8 @@
-package com.cotemig.controller;
+package com.cotemig.controllers;
 
 import com.cotemig.dao.FeeDAO;
 import com.cotemig.dao.FeeDAOImpl;
-import com.cotemig.model.Fee;
+import com.cotemig.models.Fee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

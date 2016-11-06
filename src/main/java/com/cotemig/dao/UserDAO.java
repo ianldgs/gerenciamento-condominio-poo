@@ -1,6 +1,6 @@
 package com.cotemig.dao;
 
-import com.cotemig.model.User;
+import com.cotemig.models.User;
 
 import java.util.List;
 
