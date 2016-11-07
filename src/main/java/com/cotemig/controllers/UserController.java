@@ -12,6 +12,6 @@ public class UserController {
 
     @RequestMapping("/user")
     public String user() {
-
+        return "";
     }
 }

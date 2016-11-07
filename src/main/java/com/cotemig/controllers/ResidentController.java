@@ -12,6 +12,6 @@ public class ResidentController {
 
     @RequestMapping("/resident")
     public String resident() {
-
+        return "";
     }
 }
