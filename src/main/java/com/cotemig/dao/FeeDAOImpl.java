@@ -32,8 +32,6 @@ public class FeeDAOImpl implements FeeDAO {
         Fee fee = new Fee();
 
         fee.setValue(value);
-        fee.setCode(code);
-        fee.setPaid(true);
         fee.setCondo(condoDAO.getCondoByCnpj(cnpjCondo));
         fee.setResident(residentDAO.getResidentByCpf(cpfResident));
 

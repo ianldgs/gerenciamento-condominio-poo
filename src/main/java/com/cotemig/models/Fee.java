@@ -19,14 +19,12 @@ public class Fee {
     @Column(nullable = false)
     private double value;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(nullable = false)
-    private String code; //TODO: que isso?
-
-    @Column(nullable = false)
-    private boolean paid = false;
+    private double paid = 0;
 
     @ManyToOne(targetEntity = Resident.class)
     private Resident resident;
@@ -58,19 +56,11 @@ public class Fee {
         this.date = date;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public boolean isPaid() {
+    public double getPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(double paid) {
         this.paid = paid;
     }
 
