@@ -1,8 +1,15 @@
 package com.cotemig.services;
 
+import com.cotemig.dao.FeeDAO;
+import com.cotemig.dao.FeeDAOImpl;
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
 import com.cotemig.models.Resident;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ian Luca on 06/11/2016.
@@ -38,5 +45,22 @@ public class FeeService { //TODO: tornar essa classe injetável, pra ser usada n
         fee.setPaid(value);
 
         return fee;
+    }
+
+    public List<Fee> parseFile(File file) throws IOException {
+        List<Fee> fees = new ArrayList<>();
+
+        BufferedReader bufferedReader = new BufferedReader(
+            new InputStreamReader(
+                new FileInputStream(file)
+            )
+        );
+
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            fees.add(parseLine(line));
+        }
+
+        return fees;
     }
 }
