@@ -8,6 +8,11 @@
     <persistence-unit name="Condominio" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
+        <class>com.cotemig.models.Fee</class>
+        <class>com.cotemig.models.Condo</class>
+        <class>com.cotemig.models.Resident</class>
+        <class>com.cotemig.models.User</class>
+
         <properties>
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@cau.cotemig.com.br:1521"/>

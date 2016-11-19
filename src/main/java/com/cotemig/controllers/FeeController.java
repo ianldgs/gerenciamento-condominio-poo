@@ -1,7 +1,6 @@
 package com.cotemig.controllers;
 
 import com.cotemig.repositories.FeeRepository;
-import com.cotemig.repositories.FeeRepositoryImpl;
 import com.cotemig.models.Fee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +33,12 @@ public class FeeController {
             InputStream inputStream = file.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-            FeeRepository feeRepository = new FeeRepositoryImpl();
+            /*FeeRepository feeRepository = new FeeRepositoryImpl();
 
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 feeRepository.addFee(line);
-            }
+            }*/
         }
         catch (IOException e) {
             e.printStackTrace();
