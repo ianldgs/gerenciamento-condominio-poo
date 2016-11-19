@@ -21,7 +21,7 @@ public class Fee {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date date = new Date();
 
     @Column(nullable = false)
     private double paid = 0;
@@ -50,10 +50,6 @@ public class Fee {
 
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public double getPaid() {
