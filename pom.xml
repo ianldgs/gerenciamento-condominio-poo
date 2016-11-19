@@ -47,6 +47,11 @@
             <version>1.10.5.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>com.hynnet</groupId>
+            <artifactId>oracle-driver-ojdbc</artifactId>
+            <version>12.1.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
         </dependency>
