@@ -1,18 +1,15 @@
 package com.cotemig;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.PlatformTransactionManager;
-
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -21,8 +18,9 @@ import javax.sql.DataSource;
  * Created by matheus.elias on 11/19/16.
  */
 @Configuration
-@ComponentScan
+@EnableJpaRepositories
 @EnableTransactionManagement
+
 class ApplicationConfig {
     @Bean
     public DataSource dataSource() {
@@ -39,7 +37,7 @@ class ApplicationConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan(getClass().getPackage().getName());
+        factory.setPackagesToScan("com.cotemig.repositories");
         factory.setDataSource(dataSource());
         factory.afterPropertiesSet();
 
@@ -50,6 +48,7 @@ class ApplicationConfig {
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory());
+
         return txManager;
     }
 }
