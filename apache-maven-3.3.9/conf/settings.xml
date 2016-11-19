@@ -47,9 +47,9 @@ under the License.
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <!-- localRepository
-   | The path to the local repository maven will use to store artifacts.
+   | The path to the local repositories maven will use to store artifacts.
    |
-   | Default: ${user.home}/.m2/repository
+   | Default: ${user.home}/.m2/repositories
   <localRepository>/path/to/local/repo</localRepository>
   -->
 
@@ -135,17 +135,17 @@ under the License.
   <!-- mirrors
    | This is a list of mirrors to be used in downloading artifacts from remote repositories.
    |
-   | It works like this: a POM may declare a repository to use in resolving certain artifacts.
-   | However, this repository may have problems with heavy traffic at times, so people have mirrored
+   | It works like this: a POM may declare a repositories to use in resolving certain artifacts.
+   | However, this repositories may have problems with heavy traffic at times, so people have mirrored
    | it to several places.
    |
-   | That repository definition will have a unique id, so we can create a mirror reference for that
-   | repository, to be used as an alternate download site. The mirror site will be the preferred
-   | server for that repository.
+   | That repositories definition will have a unique id, so we can create a mirror reference for that
+   | repositories, to be used as an alternate download site. The mirror site will be the preferred
+   | server for that repositories.
    |-->
   <mirrors>
     <!-- mirror
-     | Specifies a repository mirror site to use instead of a given repository. The repository that
+     | Specifies a repositories mirror site to use instead of a given repositories. The repositories that
      | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used
      | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.
      |
@@ -161,7 +161,7 @@ under the License.
   <!-- profiles
    | This is a list of profiles which can be activated in a variety of ways, and which can modify
    | the build process. Profiles provided in the settings.xml are intended to provide local machine-
-   | specific paths and repository locations which allow the build to work in the local environment.
+   | specific paths and repositories locations which allow the build to work in the local environment.
    |
    | For example, if you have an integration testing plugin - like cactus - that needs to know where
    | your Tomcat instance is installed, you can provide a variable here such that the variable is
@@ -199,13 +199,13 @@ under the License.
       </activation>
 
       <repositories>
-        <repository>
+        <repositories>
           <id>jdk14</id>
           <name>Repository for JDK 1.4 builds</name>
           <url>http://www.myhost.com/maven/jdk14</url>
           <layout>default</layout>
           <snapshotPolicy>always</snapshotPolicy>
-        </repository>
+        </repositories>
       </repositories>
     </profile>
     -->
