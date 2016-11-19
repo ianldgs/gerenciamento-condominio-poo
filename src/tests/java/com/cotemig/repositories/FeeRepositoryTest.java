@@ -38,9 +38,11 @@ public class FeeRepositoryTest {
 
         fee.setValue(500);
 
+        assertEquals(0, fee.getId());
+
         repository.saveAndFlush(fee);
 
-        assertEquals(1, fee.getId());
+        assertNotEquals(0, fee.getId());
         assertEquals(1, repository.count());
     }
 
