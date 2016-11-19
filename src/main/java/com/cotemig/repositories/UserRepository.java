@@ -1,4 +1,4 @@
-package com.cotemig.dao;
+package com.cotemig.repositories;
 
 import com.cotemig.models.User;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by matheus.elias on 11/2/16.
  */
-public interface UserDAO {
+public interface UserRepository {
     public void addUser(User user);
     public void updateUser(User user);
     public List<User> listUser();

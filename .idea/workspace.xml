@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de57aedd-c841-4a5f-b4b8-88d4661e5c9c" name="Default" comment="Renamed a few files, so they could fully replace the old dweller, and started the process of replacing dweller references on the code">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/cotemig/ApplicationConfig.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/dao/CondoDAOImpl.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/dao/FeeDAOImpl.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/dao/ResidentDAOImpl.java" afterPath="" />
@@ -18,9 +17,7 @@
       <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/dao/UserDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/cotemig/repositories/UserRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apache-maven-3.3.9/conf/settings.xml" afterPath="$PROJECT_DIR$/apache-maven-3.3.9/conf/settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/condominio-poo.iml" afterPath="$PROJECT_DIR$/condominio-poo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/controllers/FeeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/cotemig/controllers/FeeController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/models/Condo.java" afterPath="$PROJECT_DIR$/src/main/java/com/cotemig/models/Condo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/cotemig/services/FeeService.java" afterPath="$PROJECT_DIR$/src/main/java/com/cotemig/services/FeeService.java" />
@@ -600,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1478454633923</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added JPA repository configuration files">
+      <created>1479576811349</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1479576811349</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -688,7 +692,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Renamed a few files, so they could fully replace the old dweller, and started the process of replacing dweller references on the code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed a few files, so they could fully replace the old dweller, and started the process of replacing dweller references on the code" />
+    <MESSAGE value="Added JPA repository configuration files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added JPA repository configuration files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

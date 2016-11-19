@@ -26,6 +26,7 @@ public class Condo {
     private List<Resident> residents;
 
     @OneToMany(targetEntity = Fee.class)
+    @JoinColumn
     private List<Fee> fees;
 
     //endregion

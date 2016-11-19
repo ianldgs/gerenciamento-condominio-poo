@@ -1,11 +1,8 @@
 package com.cotemig.services;
 
-import com.cotemig.dao.FeeDAO;
-import com.cotemig.dao.FeeDAOImpl;
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
 import com.cotemig.models.Resident;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.ArrayList;
