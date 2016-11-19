@@ -1,16 +1,8 @@
 package com.cotemig.repositories;
 
 import com.cotemig.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface UserRepository extends JpaRepository<User, Long> {
 
-/**
- * Created by matheus.elias on 11/2/16.
- */
-public interface UserRepository {
-    public void addUser(User user);
-    public void updateUser(User user);
-    public List<User> listUser();
-    public User getUserById(int id);
-    public void removeUser(int id);
 }

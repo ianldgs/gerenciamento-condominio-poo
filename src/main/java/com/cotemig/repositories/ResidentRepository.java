@@ -1,16 +1,8 @@
 package com.cotemig.repositories;
 
 import com.cotemig.models.Resident;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface ResidentRepository  extends JpaRepository<Resident, Long> {
 
-/**
- * Created by matheus.elias on 11/2/16.
- */
-public interface ResidentRepository {
-    public void addResident(Resident resident);
-    public void updateResident(Resident resident);
-    public List<Resident> listResident();
-    public Resident getResidentByCpf(String cpf);
-    public void removeResident(String cpf);
 }
