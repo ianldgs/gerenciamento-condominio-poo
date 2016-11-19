@@ -3,8 +3,10 @@ package com.cotemig.services;
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
 import com.cotemig.models.Resident;
+import com.cotemig.repositories.FeeRepository;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,23 @@ import java.util.List;
  * Created by Ian Luca on 06/11/2016.
  */
 public class FeeService { //TODO: tornar essa classe injetável, pra ser usada nos controllers
+    public void create(Condo condo, double totalAmount) {
+        List<Resident> residentsList = condo.getResidents();
+
+        double amountPerResident = totalAmount / residentsList.size();
+        DecimalFormat formatAmountPerResident = new DecimalFormat("#.00");
+        amountPerResident = Double.valueOf(formatAmountPerResident.format(amountPerResident));
+
+        for (Resident resident : residentsList) {
+            Fee fee = new Fee();
+            fee.setCondo(condo);
+            fee.setResident(resident);
+            fee.setValue(amountPerResident);
+        }
+
+        FeeRepository repository
+    }
+
     public Fee find(String cnpj, String cpf, int year, int month) {
         //TODO: DAO/Repository? Procurar uma Fee no banco (onde cpf = cpf, cnpj = cnpj, year = year e month = month)
 
