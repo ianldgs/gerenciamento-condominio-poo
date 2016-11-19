@@ -20,8 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-
-class ApplicationConfig {
+public class ApplicationConfig {
     @Bean
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
@@ -37,7 +36,7 @@ class ApplicationConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.cotemig.repositories");
+        factory.setPackagesToScan(getClass().getPackage().getName());
         factory.setDataSource(dataSource());
         factory.afterPropertiesSet();
 

@@ -28,7 +28,7 @@ public class FeeService { //TODO: tornar essa classe injetável, pra ser usada n
             fee.setValue(amountPerResident);
         }
 
-        FeeRepository repository
+//        FeeRepository repository
     }
 
     public Fee find(String cnpj, String cpf, int year, int month) {
