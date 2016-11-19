@@ -15,7 +15,8 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@cau.cotemig.com.br:1521"/>
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//cau.cotemig.com.br:1521"/>
             <property name="javax.persistence.jdbc.user" value="a71500057" />
             <property name="javax.persistence.jdbc.password" value="" />
 
