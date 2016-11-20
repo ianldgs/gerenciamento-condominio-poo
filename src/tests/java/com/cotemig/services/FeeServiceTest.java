@@ -18,6 +18,8 @@ public class FeeServiceTest {
     @Before
     public void setUp() throws Exception {
         feeService = new FeeService();
+
+        //TODO: criar aqui, o mock do banco referente ao arquivo mocks/fees.txt, para os finds funcionarem corretamente
     }
 
     @Test
