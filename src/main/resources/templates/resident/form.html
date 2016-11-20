@@ -8,19 +8,28 @@
 </head>
 <body>
     <form th:action="@{/resident}" th:object="${resident}" method="post">
+        <input id="txtId" type="hidden" th:if="${resident.id != 0}" th:field="*{id}" />
+
+        <label for="txtCpf">CPF</label>
+        <input id="txtCpf" type="text" th:field="*{cpf}" />
         <p th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></p>
-        <input type="text" th:field="*{cpf}" />
         <br />
 
+
+        <label for="txtName">Nome</label>
+        <input id="txtName" type="text" th:field="*{name}" />
         <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-        <input type="text" th:field="*{name}" />
         <br />
 
+        <label for="txtNumber">Apartamento</label>
+        <input id="txtNumber" type="number" th:field="*{apartmentNumber}" />
         <p th:if="${#fields.hasErrors('apartmentNumber')}" th:errors="*{apartmentNumber}">Número do apartamento inválido</p>
-        <input type="number" th:field="*{apartmentNumber}" />
         <br />
 
-        <input type="checkbox" th:field="*{syndic}" />
+        <input id="chkSyndic" type="checkbox" th:field="*{syndic}" />
+        <label for="chkSyndic">Síndico</label>
+        <br />
+
         <br />
 
         <button type="submit">Salvar</button>
