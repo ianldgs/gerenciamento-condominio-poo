@@ -32,7 +32,7 @@ public class FeeRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-//        feeRepository.deleteAll();
+        feeRepository.deleteAll();
     }
 
     @Test
@@ -42,8 +42,7 @@ public class FeeRepositoryTest {
         assertEquals(0, feeRepository.findAll().size());
     }
 
-    @Test
-    public void save() throws Exception {
+    public int save() throws Exception {
         Fee fee = new Fee();
 
         fee.setValue(500);
@@ -54,6 +53,8 @@ public class FeeRepositoryTest {
 
         assertNotEquals(0, fee.getId());
         assertEquals(1, feeRepository.count());
+
+        return fee.getId();
     }
 
     @Test
@@ -65,9 +66,7 @@ public class FeeRepositoryTest {
 
     @Test
     public void findOne() throws Exception {
-        save();
-
-        Fee fee = feeRepository.findOne(1);
+        Fee fee = feeRepository.findOne(save());
 
         assertNotNull(fee);
 
