@@ -1,5 +1,6 @@
 package com.cotemig.controllers;
 
+import com.cotemig.exceptions.NotFoundException;
 import com.cotemig.models.Resident;
 import com.cotemig.repositories.ResidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,14 @@ public class ResidentController {
 
     @GetMapping("resident/{id}")
     public String editForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("resident", residentRepository.findOne(id));
+        Resident resident = residentRepository.findOne(id);
+
+        if (null == resident) {
+            throw new NotFoundException();
+        }
+
+        model.addAttribute("resident", resident);
+
         return "resident/form";
     }
 
