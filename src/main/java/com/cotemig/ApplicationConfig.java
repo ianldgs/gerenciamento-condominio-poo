@@ -1,5 +1,6 @@
 package com.cotemig;
 
+import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  * Created by matheus.elias on 11/19/16.
@@ -22,13 +24,22 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class ApplicationConfig {
     @Bean
-    public DataSource dataSource() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+    public DataSource dataSource() throws SQLException {
+//        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+//        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+
+        OracleDataSource dataSource = new OracleDataSource();
+//        dataSource.setUser("a71500111");
+//        dataSource.setPassword("a71500111");
+        dataSource.setURL("jdbc:oracle:thin:@//cau.cotemig.com.br:1521");
+        dataSource.setImplicitCachingEnabled(true);
+        dataSource.setFastConnectionFailoverEnabled(true);
+
+        return dataSource;
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
+    public EntityManagerFactory entityManagerFactory() throws SQLException {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
@@ -44,7 +55,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager() throws SQLException {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory());
 
