@@ -20,7 +20,8 @@ public class Fee {
     private double value;
 
     @Column(nullable = false)
-    private Date date = new Date();
+    @Temporal(TemporalType.DATE)
+    private Date dueDate = new Date();
 
     @Column(nullable = false)
     private double paid = 0;
@@ -47,8 +48,12 @@ public class Fee {
         this.value = value;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
     public double getPaid() {
