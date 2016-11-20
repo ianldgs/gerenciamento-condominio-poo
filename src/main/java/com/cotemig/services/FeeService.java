@@ -34,8 +34,6 @@ public class FeeService {
             fee.setResident(resident);
             fee.setValue(amountPerResident);
         }
-
-//        FeeRepository repository
     }
 
     public Fee parseLine(String line) {

@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "residents")
-@SequenceGenerator(name="RESIDENT_SEQUENCE", sequenceName="RESIDENT_SEQUENCE", allocationSize=1, initialValue=0)
+@SequenceGenerator(name="RESIDENT_SEQUENCE", sequenceName="RESIDENT_ID_SEQUENCE", allocationSize=1)
 public class Resident {
     //region attributes
 

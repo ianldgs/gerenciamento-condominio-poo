@@ -8,7 +8,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "condos")
-@SequenceGenerator(name="CONDO_SEQUENCE", sequenceName="CONDO_SEQUENCE", allocationSize=1, initialValue=0)
+@SequenceGenerator(name="CONDO_SEQUENCE", sequenceName="CONDO_ID_SEQUENCE", allocationSize=1)
 public class Condo {
     //region attributes
 
@@ -22,9 +22,11 @@ public class Condo {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     @OneToMany(targetEntity = Resident.class)
     private List<Resident> residents;
 
+    @Column(nullable = false)
     @OneToMany(targetEntity = Fee.class)
     @JoinColumn
     private List<Fee> fees;

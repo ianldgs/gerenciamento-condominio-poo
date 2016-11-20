@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Condomínio - Inserção</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <form action="#" th:action="@{/condo/insert}" th:object="${condo}" method="post">
+        <p>CNPJ: <input type="text" th:field="*{cnpj}" /></p>
+        <p>Nome: <input type="text" th:field="*{name}" /></p>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

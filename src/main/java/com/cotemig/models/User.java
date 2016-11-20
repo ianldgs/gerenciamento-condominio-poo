@@ -7,8 +7,8 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="users")
-@SequenceGenerator(name="USER_SEQUENCE", sequenceName="USER_SEQUENCE", allocationSize=1, initialValue=0)
+@Table(name = "users")
+@SequenceGenerator(name="USER_SEQUENCE", sequenceName="USER_ID_SEQUENCE", allocationSize=1)
 public class User {
     //region attributes
 
