@@ -33,6 +33,8 @@ public class FeeRepositoryTest {
     @Before
     public void setUp() throws Exception {
         feeRepository.deleteAll();
+        residentRepository.deleteAll();
+        condoRepository.deleteAll();
     }
 
     @Test
@@ -88,7 +90,7 @@ public class FeeRepositoryTest {
 
         Resident resident = new Resident();
         resident.setCondo(condo);
-        resident.setCpf("321");
+        resident.setCpf("12312312387");
         resident.setApartmentNumber(205);
         resident.setName("Ian");
 
@@ -117,7 +119,7 @@ public class FeeRepositoryTest {
     public void findByCnpjAndCpfAndDateWithFormat() throws Exception {
         saveWithRelations();
 
-        Fee fee = feeRepository.findByCnpjAndCpfAndDateWithFormat("123", "321", "09/2016", "MM/YYYY");
+        Fee fee = feeRepository.findByCnpjAndCpfAndDateWithFormat("123", "12312312387", "09/2016", "MM/YYYY");
 
         assertNotNull(fee);
     }

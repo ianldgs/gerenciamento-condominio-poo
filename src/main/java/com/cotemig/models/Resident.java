@@ -1,6 +1,11 @@
 package com.cotemig.models;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -17,18 +22,24 @@ public class Resident {
     private int id;
 
     @Column(nullable = false)
+    @NotNull(message = "CPF Inválido")
+    @Length(min = 11, max = 11, message = "CPF Inválido")
     private String cpf;
 
     @Column(nullable = false)
+    @NotNull(message = "O nome é obrigatório")
+    @Length(min = 3, max = 255)
     private String name;
 
     @Column(nullable = false)
     private boolean syndic = false;
 
     @Column
+    @NotNull(message = "O número do apartamento é obrigatório")
+    @Min(1)
     private int apartmentNumber;
 
-    @ManyToOne(targetEntity = Condo.class, optional = false)
+    @ManyToOne(targetEntity = Condo.class, optional = true)
     private Condo condo;
 
     @OneToMany(targetEntity = Fee.class)

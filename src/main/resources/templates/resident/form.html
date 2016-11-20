@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Criação de Condôminos</title>
+</head>
+<body>
+    <form th:action="@{/resident}" th:object="${resident}" method="post">
+        <p th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></p>
+        <input type="text" th:field="*{cpf}" />
+        <br />
+
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        <input type="text" th:field="*{name}" />
+        <br />
+
+        <p th:if="${#fields.hasErrors('apartmentNumber')}" th:errors="*{apartmentNumber}">Número do apartamento inválido</p>
+        <input type="number" th:field="*{apartmentNumber}" />
+        <br />
+
+        <input type="checkbox" th:field="*{syndic}" />
+        <br />
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
