@@ -54,8 +54,12 @@ public class ResidentController {
         return "resident/form";
     }
 
-    @PutMapping("resident/{id}")
-    public String edit(@Valid Resident resident) {
+    @PutMapping("resident")
+    public String edit(@Valid Resident resident, BindingResult result) {
+        if (result.hasErrors()) {
+            return "resident/form";
+        }
+
         residentRepository.saveAndFlush(resident);
 
         return "resident/form";
