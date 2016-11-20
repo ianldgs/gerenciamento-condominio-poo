@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "fees")
-@SequenceGenerator(name="FEE_SEQUENCE", sequenceName="FEE_SEQUENCE", allocationSize=1, initialValue=0)
+@SequenceGenerator(name="FEE_SEQUENCE", sequenceName="FEE_ID_SEQUENCE", allocationSize=1)
 public class Fee {
     //region attributes
 

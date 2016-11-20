@@ -14,18 +14,15 @@
         <class>com.cotemig.models.User</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver" />
+            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@//cau.cotemig.com.br:1521" />
+            <property name="hibernate.connection.username" value="a71500057" />
+            <property name="hibernate.connection.password" value="Oyster_2014" />
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//cau.cotemig.com.br:1521"/>
-            <property name="javax.persistence.jdbc.user" value="a71500057" />
-            <property name="javax.persistence.jdbc.password" value="" />
-
-            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
-            <property name="hibernate.connection.username" value="system" />
-            <property name="hibernate.connection.password" value="system" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
         </properties>
 
     </persistence-unit>
