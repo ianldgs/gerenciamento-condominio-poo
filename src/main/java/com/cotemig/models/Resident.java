@@ -21,7 +21,7 @@ public class Resident {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="RESIDENT_SEQUENCE")
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull(message = "CPF Inválido")
     @Length(min = 11, max = 11, message = "CPF Inválido")
     private String cpf;

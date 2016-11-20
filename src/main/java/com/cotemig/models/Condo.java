@@ -16,7 +16,7 @@ public class Condo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CONDO_SEQUENCE")
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String cnpj;
 
     @Column(nullable = false)
