@@ -5,6 +5,7 @@ import com.cotemig.models.Fee;
 import com.cotemig.models.Resident;
 import com.cotemig.repositories.FeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -14,7 +15,8 @@ import java.util.List;
 /**
  * Created by Ian Luca on 06/11/2016.
  */
-public class FeeService { //TODO: tornar essa classe injetável, pra ser usada nos controllers
+@Service
+public class FeeService {
 
     @Autowired
     private FeeRepository repository;
