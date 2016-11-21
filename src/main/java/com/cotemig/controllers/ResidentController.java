@@ -1,5 +1,6 @@
 package com.cotemig.controllers;
 
+import com.cotemig.exceptions.NotFoundException;
 import com.cotemig.models.Resident;
 import com.cotemig.repositories.ResidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class ResidentController {
     private ResidentRepository residentRepository;
 
     @GetMapping("residents")
-    public String list() {
+    public String list(Model model) {
+        model.addAttribute("residents", residentRepository.findAll());
         return "resident/list";
     }
 
@@ -42,22 +44,33 @@ public class ResidentController {
 
     @GetMapping("resident/{id}")
     public String editForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("resident", residentRepository.findOne(id));
+        Resident resident = residentRepository.findOne(id);
+
+        if (null == resident) {
+            throw new NotFoundException();
+        }
+
+        model.addAttribute("resident", resident);
+
         return "resident/form";
     }
 
-    @PutMapping("resident/{id}")
-    public String edit(@Valid Resident resident) {
+    @PutMapping("resident")
+    public String edit(@Valid Resident resident, BindingResult result) {
+        if (result.hasErrors()) {
+            return "resident/form";
+        }
+
         residentRepository.saveAndFlush(resident);
 
         return "resident/form";
     }
 
     @DeleteMapping("resident/{id}")
-    public String delete(int id) {
+    public String delete(@PathVariable("id") int id) {
         residentRepository.delete(id);
         residentRepository.flush();
 
-        return "redirect:resident/list";
+        return "redirect:/residents";
     }
 }
