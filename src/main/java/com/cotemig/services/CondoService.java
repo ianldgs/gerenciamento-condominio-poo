@@ -2,6 +2,7 @@ package com.cotemig.services;
 
 import com.cotemig.models.Condo;
 import com.cotemig.repositories.CondoRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,11 @@ public class CondoService {
     @Transactional
     public void save(Condo condo) {
         try{
-            condoRepository.saveAndFlush(condo);
+            Condo existentCondo = condoRepository.findByCnpj(condo.getCnpj());
+
+            BeanUtils.copyProperties(condo, existentCondo);
+
+            condoRepository.saveAndFlush(existentCondo);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -28,9 +33,9 @@ public class CondoService {
     }
 
     @Transactional
-    public void remove(String cnpj) {
+    public void remove(int id) {
         try{
-            condoRepository.deleteByCnpj(cnpj);
+            condoRepository.delete(id);
         }
         catch (Exception e){
             e.printStackTrace();

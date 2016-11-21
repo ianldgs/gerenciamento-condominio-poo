@@ -5,9 +5,7 @@ import com.cotemig.services.CondoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -18,43 +16,31 @@ public class CondoController {
     @Autowired
     private CondoService condoService;
 
-    @GetMapping("/condo/find")
+    @GetMapping("/condos")
     public String selectView(Model model) {
         model.addAttribute("condos", condoService.find());
 
-        return "condo/find";
+        return "condo/list";
     }
 
-    @GetMapping("/condo/insert")
+    @GetMapping("/condo")
     public String insertView(Model model) {
         model.addAttribute("condo", new Condo());
-        model.addAttribute("method", "POST");
 
-        return "condo/modify";
-    }
-
-    @GetMapping("/condo/update")
-    public String updateView(Model model) {
-        model.addAttribute("condo", new Condo());
-        model.addAttribute("method", "PUT");
-
-        return "condo/modify";
+        return "condo/form";
     }
 
     @PostMapping("/condo/modify")
-    public void modify(@ModelAttribute Condo condo){
+    public String modify(@ModelAttribute Condo condo){
         condoService.save(condo);
+
+        return "redirect:/condos";
     }
 
-    @GetMapping("/condo/remove")
-    public String removeView(Model model) {
-        model.addAttribute("condo", new Condo());
+    @DeleteMapping("/condo/{id}")
+    public String delete(@PathVariable("id") int id) {
+        condoService.remove(id);
 
-        return "condo/remove";
-    }
-
-    @PostMapping("/condo/remove")
-    public void remove(@ModelAttribute Condo condo){
-        condoService.remove(condo.getCnpj());
+        return "redirect:/condos";
     }
 }

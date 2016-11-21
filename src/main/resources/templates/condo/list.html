@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Condomínio - Lista</title>
+</head>
+<body>
+    <a th:href="@{/condo}">Novo Condomínio</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>CNPJ</th>
+            <th>Nome</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="condo : ${condos}">
+                <td>
+                    <a th:text="${condo.id}" th:href="@{/condo/{id}(id=${condo.id})}"></a>
+                </td>
+                <td th:text="${condo.cnpj}"></td>
+                <td th:text="${condo.name}"></td>
+                <td>
+                    <form th:action="@{/condo/{id}(id=${condo.id})}" th:method="delete">
+                        <button type="submit">Apagar</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(condos)}">
+                <td colspan="7">
+                    Nenhum condomínio cadastrado
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
