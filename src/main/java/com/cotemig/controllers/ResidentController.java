@@ -3,6 +3,7 @@ package com.cotemig.controllers;
 import com.cotemig.exceptions.NotFoundException;
 import com.cotemig.models.Resident;
 import com.cotemig.repositories.ResidentRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,12 +33,21 @@ public class ResidentController {
     }
 
     @PostMapping("resident")
-    public String create(@Valid Resident resident, BindingResult result) {
+    public String createOrEdit(@Valid Resident resident, BindingResult result) {
         if (result.hasErrors()) {
             return "resident/form";
         }
 
-        residentRepository.saveAndFlush(resident);
+        Resident _resident;
+
+        if (resident.getId() != 0) {
+            _resident = residentRepository.findOne(resident.getId());
+            BeanUtils.copyProperties(resident, _resident);
+        } else {
+            _resident = resident;
+        }
+
+        residentRepository.saveAndFlush(_resident);
 
         return "redirect:residents";
     }
@@ -51,17 +61,6 @@ public class ResidentController {
         }
 
         model.addAttribute("resident", resident);
-
-        return "resident/form";
-    }
-
-    @PutMapping("resident")
-    public String edit(@Valid Resident resident, BindingResult result) {
-        if (result.hasErrors()) {
-            return "resident/form";
-        }
-
-        residentRepository.saveAndFlush(resident);
 
         return "resident/form";
     }
