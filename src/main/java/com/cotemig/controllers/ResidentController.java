@@ -67,10 +67,10 @@ public class ResidentController {
     }
 
     @DeleteMapping("resident/{id}")
-    public String delete(int id) {
+    public String delete(@PathVariable("id") int id) {
         residentRepository.delete(id);
         residentRepository.flush();
 
-        return "redirect:resident/list";
+        return "redirect:/residents";
     }
 }
