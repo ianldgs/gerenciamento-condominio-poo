@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
+</head>
+<body>
+    <form th:action="@{/login}" method="post">
+        <div th:if="${error}">
+            <p>Email ou senha inválidos</p>
+        </div>
+
+        <label for="txtEmail">Email</label>
+        <input id="txtEmail" name="email" type="text" />
+        <br />
+
+
+        <label for="txtPassword">Senha</label>
+        <input id="txtPassword" name="password" type="password" />
+        <br />
+
+        <button type="submit">Entrar</button>
+    </form>
+</body>
+</html>

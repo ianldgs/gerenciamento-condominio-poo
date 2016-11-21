@@ -1,5 +1,6 @@
 package com.cotemig;
 
+import com.cotemig.interceptors.AuthInterceptor;
 import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -22,15 +26,16 @@ import java.sql.SQLException;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-public class ApplicationConfig {
+@EnableWebMvc
+public class ApplicationConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource dataSource() throws SQLException {
 //        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 //        return builder.setType(EmbeddedDatabaseType.HSQL).build();
 
         OracleDataSource dataSource = new OracleDataSource();
-//        dataSource.setUser("a71500111");
-//        dataSource.setPassword("a71500111");
+        dataSource.setUser("a71500111");
+        dataSource.setPassword("a71500111");
         dataSource.setURL("jdbc:oracle:thin:@//cau.cotemig.com.br:1521");
         dataSource.setImplicitCachingEnabled(true);
         dataSource.setFastConnectionFailoverEnabled(true);
@@ -60,5 +65,10 @@ public class ApplicationConfig {
         txManager.setEntityManagerFactory(entityManagerFactory());
 
         return txManager;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AuthInterceptor());
     }
 }
