@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by matheus.elias on 11/19/16.
  */
@@ -16,12 +18,36 @@ public class CondoService {
     private CondoRepository condoRepository;
 
     @Transactional
-    public void insert(Condo condo) {
+    public void save(Condo condo) {
         try{
             condoRepository.saveAndFlush(condo);
         }
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Transactional
+    public void remove(String cnpj) {
+        try{
+            condoRepository.deleteByCnpj(cnpj);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Transactional
+    public List<Condo> find(){
+        List<Condo> condoList = null;
+
+        try {
+            condoList = condoRepository.findAll();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return condoList;
     }
 }

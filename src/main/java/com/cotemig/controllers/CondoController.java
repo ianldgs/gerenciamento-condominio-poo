@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -19,20 +18,43 @@ public class CondoController {
     @Autowired
     private CondoService condoService;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    @GetMapping("/condo/find")
+    public String selectView(Model model) {
+        model.addAttribute("condos", condoService.find());
+
+        return "condo/find";
     }
 
     @GetMapping("/condo/insert")
     public String insertView(Model model) {
         model.addAttribute("condo", new Condo());
-        return "condo/insert";
+        model.addAttribute("method", "POST");
+
+        return "condo/modify";
     }
 
-    @PostMapping("/condo/insert")
-    public void insert(@ModelAttribute Condo condo){
-        condoService.insert(condo);
+    @GetMapping("/condo/update")
+    public String updateView(Model model) {
+        model.addAttribute("condo", new Condo());
+        model.addAttribute("method", "PUT");
+
+        return "condo/modify";
+    }
+
+    @PostMapping("/condo/modify")
+    public void modify(@ModelAttribute Condo condo){
+        condoService.save(condo);
+    }
+
+    @GetMapping("/condo/remove")
+    public String removeView(Model model) {
+        model.addAttribute("condo", new Condo());
+
+        return "condo/remove";
+    }
+
+    @PostMapping("/condo/remove")
+    public void remove(@ModelAttribute Condo condo){
+        condoService.remove(condo.getCnpj());
     }
 }

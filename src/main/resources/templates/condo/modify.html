@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Condomínio - Inserção</title>
+    <title>Condomínio - Modificar/Inserir</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form action="#" th:action="@{/condo/insert}" th:object="${condo}" method="post">
+    <form action="#" th:action="@{/condo/modify}" th:object="${condo}" method="post">
+        <p th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}">CNPJ inválido</p>
         <p>CNPJ: <input type="text" th:field="*{cnpj}" /></p>
         <p>Nome: <input type="text" th:field="*{name}" /></p>
 
