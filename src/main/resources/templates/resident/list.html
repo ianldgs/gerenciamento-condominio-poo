@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lista de Condôminos</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Apartamento</th>
+                <th>É Síndico</th>
+                <th>Condomínio</th>
+            </tr>
+        </thead>
+        <tbod>
+            <tr th:each="resident : ${residents}">
+                <td th:text="${resident.id}"></td>
+                <td th:text="${resident.cpf}"></td>
+                <td th:text="${resident.name}"></td>
+                <td th:text="${resident.apartmentNumber}"></td>
+                <td th:text="${resident.syndic ? 'Sim' : 'Não'}"></td>
+                <td th:text="${resident.condo != null ? resident.condo.id : '---'}"></td>
+            </tr>
+        </tbod>
+    </table>
+</body>
+</html>

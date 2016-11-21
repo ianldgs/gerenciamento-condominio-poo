@@ -20,7 +20,8 @@ public class ResidentController {
     private ResidentRepository residentRepository;
 
     @GetMapping("residents")
-    public String list() {
+    public String list(Model model) {
+        model.addAttribute("residents", residentRepository.findAll());
         return "resident/list";
     }
 
