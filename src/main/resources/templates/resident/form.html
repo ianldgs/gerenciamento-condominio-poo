@@ -7,7 +7,7 @@
     <title>Criação de Condôminos</title>
 </head>
 <body>
-    <form th:action="@{/resident}" th:object="${resident}" th:method="${resident.id == 0 ? 'POST' : 'PUT'}">
+    <form th:action="@{/resident}" th:object="${resident}" method="post">
         <input id="txtId" type="hidden" th:if="${resident.id != 0}" th:field="*{id}" />
 
         <label for="txtCpf">CPF</label>
