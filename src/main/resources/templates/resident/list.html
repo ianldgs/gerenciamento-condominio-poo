@@ -20,7 +20,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbod>
+        <tbody>
             <tr th:each="resident : ${residents}">
                 <td>
                     <a th:text="${resident.id}" th:href="@{/resident/{id}(id=${resident.id})}"></a>
@@ -41,7 +41,7 @@
                     Nenhumn condômino cadastrado
                 </td>
             </tr>
-        </tbod>
+        </tbody>
     </table>
 </body>
 </html>

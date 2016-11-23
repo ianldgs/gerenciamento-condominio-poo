@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,19 +23,33 @@ public class FeeService {
     @Autowired
     private FeeRepository repository;
 
-    public void create(Condo condo, double totalAmount) {
+    public void divideTotalByResident(Condo condo, double totalAmount) {
         List<Resident> residentsList = condo.getResidents();
 
         double amountPerResident = totalAmount / residentsList.size();
         DecimalFormat formatAmountPerResident = new DecimalFormat("#.00");
         amountPerResident = Double.valueOf(formatAmountPerResident.format(amountPerResident));
 
+        Date date = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/YYYY");
+        String monthAndYearNow = sdf.format(date);
+
         for (Resident resident : residentsList) {
             Fee fee = new Fee();
             fee.setCondo(condo);
             fee.setResident(resident);
             fee.setValue(amountPerResident);
+            fee.setDueDate(date);
+
+            boolean feeExists = repository.findByCnpjAndCpfAndDateWithFormat(condo.getCnpj(), resident.getCpf(), sdf.format(fee.getDueDate()), "MM/YYYY") != null;
+
+            if(feeExists){
+                repository.save(fee);
+            }
         }
+
+        repository.flush();
     }
 
     public Fee parseLine(String line) {

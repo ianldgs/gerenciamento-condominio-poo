@@ -1,6 +1,8 @@
 package com.cotemig.controllers;
 
+import com.cotemig.exceptions.NotFoundException;
 import com.cotemig.models.Condo;
+import com.cotemig.repositories.CondoRepository;
 import com.cotemig.services.CondoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ public class CondoController {
     @Autowired
     private CondoService condoService;
 
+    @Autowired
+    private CondoRepository condoRepository;
+
     @GetMapping("/condos")
     public String selectView(Model model) {
         model.addAttribute("condos", condoService.find());
@@ -23,9 +28,15 @@ public class CondoController {
         return "condo/list";
     }
 
-    @GetMapping("/condo")
-    public String insertView(Model model) {
-        model.addAttribute("condo", new Condo());
+    @GetMapping("/condo/{id}")
+    public String insertView(@PathVariable int id, Model model) {
+        Condo condo = condoRepository.findOne(id);
+
+        if (condo == null) {
+            throw new NotFoundException();
+        }
+
+        model.addAttribute("condo", condo);
 
         return "condo/form";
     }

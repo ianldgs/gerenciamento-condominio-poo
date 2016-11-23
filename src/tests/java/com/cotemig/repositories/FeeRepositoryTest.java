@@ -104,7 +104,7 @@ public class FeeRepositoryTest {
         fee.setCondo(condo);
         fee.setResident(resident);
         fee.setValue(500);
-        fee.setDueDate(new Date(116, 8, 19));
+        fee.setDueDate(new Date());
 
         assertEquals(0, fee.getId());
 

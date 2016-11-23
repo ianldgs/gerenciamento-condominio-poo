@@ -23,7 +23,12 @@ public class CondoService {
         try{
             Condo existentCondo = condoRepository.findByCnpj(condo.getCnpj());
 
-            BeanUtils.copyProperties(condo, existentCondo);
+            if(existentCondo != null){
+                BeanUtils.copyProperties(condo, existentCondo);
+            }
+            else {
+                existentCondo = condo;
+            }
 
             condoRepository.saveAndFlush(existentCondo);
         }
@@ -36,6 +41,7 @@ public class CondoService {
     public void remove(int id) {
         try{
             condoRepository.delete(id);
+            condoRepository.flush();
         }
         catch (Exception e){
             e.printStackTrace();

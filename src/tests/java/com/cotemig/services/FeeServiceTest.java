@@ -1,19 +1,32 @@
 package com.cotemig.services;
 
+import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
+import com.cotemig.repositories.CondoRepository;
+import com.cotemig.repositories.FeeRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Ian Luca on 06/11/2016.
  */
 public class FeeServiceTest {
+    @Autowired
     FeeService feeService;
+
+    @Autowired
+    FeeRepository feeRepository;
+
+    @Autowired
+    CondoRepository condoRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -94,5 +107,23 @@ public class FeeServiceTest {
 
         assertNotNull(fee.getResident());
         assertEquals("03397790719", fee.getResident().getCpf());
+    }
+
+    @Test
+    public void testDivideTotalFeeByResident() throws Exception {
+        String cnpj = "24985875000158";
+        float totalAmount = 1000;
+
+        Condo condo = condoRepository.findByCnpj(cnpj);
+
+        assertNotNull(condo);
+
+        int previousTotalFeeRegistered = feeRepository.findAll().size();
+
+        feeService.divideTotalByResident(condo, totalAmount);
+
+        int nowTotalFeeRegistered = feeRepository.findAll().size();
+
+        assertNotEquals(previousTotalFeeRegistered, nowTotalFeeRegistered);
     }
 }
