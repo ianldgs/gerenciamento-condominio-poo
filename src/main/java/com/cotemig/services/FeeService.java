@@ -6,6 +6,8 @@ import com.cotemig.models.Resident;
 import com.cotemig.repositories.FeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -63,11 +65,12 @@ public class FeeService {
 
         fee.setPaid(value);
 
-        repository.saveAndFlush(fee);
+        repository.save(fee);
 
         return fee;
     }
 
+    @Transactional
     public List<Fee> parseFile(File file) throws IOException {
         List<Fee> fees = new ArrayList<>();
 
@@ -83,5 +86,12 @@ public class FeeService {
         }
 
         return fees;
+    }
+
+    public List<Fee> parseFile(MultipartFile mFile) throws IOException {
+        File file = new File(mFile.getOriginalFilename());
+        mFile.transferTo(file);
+
+        return parseFile(file);
     }
 }

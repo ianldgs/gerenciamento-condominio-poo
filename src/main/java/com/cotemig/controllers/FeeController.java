@@ -2,17 +2,17 @@ package com.cotemig.controllers;
 
 import com.cotemig.repositories.FeeRepository;
 import com.cotemig.models.Fee;
+import com.cotemig.services.FeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 /**
  * Created by matheus.elias on 11/2/16.
@@ -20,6 +20,8 @@ import java.io.InputStreamReader;
 
 @Controller
 public class FeeController {
+    @Autowired
+    FeeService feeService;
 
     @GetMapping("/fees")
     public String feeForm(Model model) {
@@ -27,21 +29,21 @@ public class FeeController {
         return "fee";
     }
 
-    @PostMapping("/fees/pay")
-    public void feeSubmit(@RequestParam("file") MultipartFile file) {
+    @GetMapping("/fees/confirm")
+    public String getConfirm() {
+        return "fee/confirm";
+    }
+
+    @PostMapping("/fees/confirm")
+    public String postConfirm(@RequestParam("file") MultipartFile file, Model model) {
         try {
-            InputStream inputStream = file.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-            /*FeeRepository feeRepository = new FeeRepositoryImpl();
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                feeRepository.addFee(line);
-            }*/
+            feeService.parseFile(file);
+            model.addAttribute("message", "Pagamentos confirmados com sucesso!");
+            return "fee/confirm";
         }
         catch (IOException e) {
-            e.printStackTrace();
+            model.addAttribute("message", "Ocorreu um erro ao ler o arquivo.");
+            return "fee/confirm";
         }
     }
 }

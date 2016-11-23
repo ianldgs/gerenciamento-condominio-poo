@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Confirmação de pagamentos</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <form th:action="@{/fees/confirm}" method="post">
+        <div th:if="${message}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <label for="txtFile">Arquivo de confirmações</label>
+        <br />
+        <input id="txtFile" type="file" name="file" />
+
+        <br />
+        <br />
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
