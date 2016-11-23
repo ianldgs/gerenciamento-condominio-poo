@@ -1,13 +1,11 @@
 package com.cotemig.controllers;
 
+import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
+import com.cotemig.services.CondoService;
 import com.cotemig.services.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.cotemig.repositories.FeeRepository;
-import com.cotemig.services.CondoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  * Created by matheus.elias on 11/2/16.
@@ -44,12 +42,13 @@ public class FeeController {
     }
 
     @PostMapping("/fee")
-    public String create(@Valid Fee fee, BindingResult result) {
+    public String create(Condo condo, double totalAmount, BindingResult result) {
         if (result.hasErrors()) {
             return "fee/form";
         }
 
-        feeRepository.saveAndFlush(fee);
+//        feeService.divideTotalByResident();
+//        feeService.saveAndFlush(fee);
 
         return "redirect:fees";
     }

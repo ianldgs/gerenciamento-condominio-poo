@@ -4,8 +4,6 @@ import com.cotemig.exceptions.NotFoundException;
 import com.cotemig.models.Resident;
 import com.cotemig.repositories.CondoRepository;
 import com.cotemig.repositories.ResidentRepository;
-import com.cotemig.services.CondoService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +35,6 @@ public class ResidentController {
     @GetMapping("resident")
     public String createForm(Model model) {
         model.addAttribute("resident", new Resident());
-        model.addAttribute("condos", condoRepository.findAll());
         return "resident/form";
     }
 
