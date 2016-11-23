@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form action="#" th:action="@{/condo/modify}" th:object="${condo}" method="post">
+    <form th:action="@{/condo}" th:object="${condo}" method="post">
         <p th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}">CNPJ inválido</p>
         <p>CNPJ: <input type="text" th:field="*{cnpj}" /></p>
         <p>Nome: <input type="text" th:field="*{name}" /></p>

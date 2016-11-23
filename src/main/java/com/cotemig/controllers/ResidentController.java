@@ -2,6 +2,7 @@ package com.cotemig.controllers;
 
 import com.cotemig.exceptions.NotFoundException;
 import com.cotemig.models.Resident;
+import com.cotemig.repositories.CondoRepository;
 import com.cotemig.repositories.ResidentRepository;
 import com.cotemig.services.CondoService;
 import org.springframework.beans.BeanUtils;
@@ -25,7 +26,7 @@ public class ResidentController {
     private ResidentRepository residentRepository;
 
     @Autowired
-    private CondoService condoService;
+    private CondoRepository condoRepository;
 
     @GetMapping("residents")
     public String list(Model model) {
@@ -45,16 +46,7 @@ public class ResidentController {
             return "resident/form";
         }
 
-        Resident _resident;
-
-        if (resident.getId() != 0) {
-            _resident = residentRepository.findOne(resident.getId());
-            BeanUtils.copyProperties(resident, _resident);
-        } else {
-            _resident = resident;
-        }
-
-        residentRepository.saveAndFlush(_resident);
+        residentRepository.saveAndFlush(resident);
 
         return "redirect:residents";
     }
@@ -68,7 +60,7 @@ public class ResidentController {
         }
 
         model.addAttribute("resident", resident);
-        model.addAttribute("condos", condoService.find());
+        model.addAttribute("condos", condoRepository.findAll());
 
         return "resident/form";
     }

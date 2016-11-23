@@ -7,7 +7,10 @@ import com.cotemig.services.CondoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 /**
@@ -16,20 +19,33 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class CondoController {
     @Autowired
-    private CondoService condoService;
-
-    @Autowired
     private CondoRepository condoRepository;
 
     @GetMapping("/condos")
-    public String selectView(Model model) {
-        model.addAttribute("condos", condoService.find());
-
+    public String list(Model model) {
+        model.addAttribute("condos", condoRepository.findAll());
         return "condo/list";
     }
 
+    @GetMapping("/condo}")
+    public String createForm(Model model) {
+        model.addAttribute("condo", new Condo());
+        return "condo/form";
+    }
+
+    @PostMapping("/condo")
+    public String createOrEdit(@Valid Condo condo, BindingResult result) {
+        if (result.hasErrors()) {
+            return "condo/form";
+        }
+
+        condoRepository.saveAndFlush(condo);
+
+        return "redirect:/condos";
+    }
+
     @GetMapping("/condo/{id}")
-    public String insertView(@PathVariable int id, Model model) {
+    public String editForm(@PathVariable int id, Model model) {
         Condo condo = condoRepository.findOne(id);
 
         if (condo == null) {
@@ -41,16 +57,9 @@ public class CondoController {
         return "condo/form";
     }
 
-    @PostMapping("/condo/modify")
-    public String modify(@ModelAttribute Condo condo){
-        condoService.save(condo);
-
-        return "redirect:/condos";
-    }
-
     @DeleteMapping("/condo/{id}")
     public String delete(@PathVariable("id") int id) {
-        condoService.remove(id);
+        condoRepository.delete(id);
 
         return "redirect:/condos";
     }
