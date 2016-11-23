@@ -2,6 +2,7 @@ package com.cotemig.controllers;
 
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
+import com.cotemig.repositories.CondoRepository;
 import com.cotemig.services.CondoService;
 import com.cotemig.services.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,29 +28,38 @@ public class FeeController {
     @Autowired
     CondoService condoService;
 
+    @Autowired
+    CondoRepository condoRepository;
+
     @GetMapping("/fee")
     public String feeForm(Model model) {
-        model.addAttribute("fee", new Fee());
         model.addAttribute("condos", condoService.find());
 
         return "fee/form";
+    }
+
+    @PostMapping("/fee")
+    public String create(Model model,
+                         @RequestParam("condoId") int condoId,
+                         @RequestParam("totalAmount") double totalAmount,
+                         @RequestParam("month") int month,
+                         @RequestParam("year") int year,
+                         BindingResult result) {
+        if (result.hasErrors()) {
+            return "fee/form";
+        }
+
+        Condo condo = condoRepository.findOne(condoId);
+
+        feeService.divideTotalByResident(condo, totalAmount, month, year);
+
+        return "redirect:fees";
     }
 
     @GetMapping("/fees")
     public String feeList(Model model) {
         model.addAttribute("fee", new Fee());
         return "fee";
-    }
-
-    @PostMapping("/fee")
-    public String create(Condo condo, double totalAmount, int month, int year, BindingResult result) {
-        if (result.hasErrors()) {
-            return "fee/form";
-        }
-
-        feeService.divideTotalByResident(condo, totalAmount, month, year);
-
-        return "redirect:fees";
     }
 
     @GetMapping("/fees/confirm")

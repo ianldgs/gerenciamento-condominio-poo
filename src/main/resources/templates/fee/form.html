@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Rateio entre os moradores do condomínio</title>
 </head>
 <body>
-<form  th:action="@{/fees/create}" th:object="${fee}" method="post">
+<form th:action="@{/fee}" method="post">
     <label for="sltCondo">Condomínio</label>
     <br />
-    <select id="sltCondo" th:field="*{condo}" >
-        <option th:each="condo : ${condos}" th:value="${condo}" th:text="|${condo.cnpj} - ${condo.name}|"></option>
+    <select id="sltCondo" name="condoId">
+        <option th:each="condo : ${condos}" th:value="${condo.id}" th:text="|${condo.name} - CNPJ ${condo.cnpj} |"></option>
     </select>
+    <br />
 
     <label for="txtMonth">Mês</label>
     <br />
-    <input type="number" name="month" th:field="*{month}" id="txtMonth" min="1" max="12" />
+    <input type="number" name="month" id="txtMonth" min="1" max="12" />
     <br />
     <label for="txtMonth">Ano</label>
     <br />
-    <input type="year" name="month" th:field="*{year}" id="txtYear" min="1900" />
+    <input type="year" name="year" id="txtYear" min="1900" />
     <br />
     <label for="txtMonth">Quantia a ser rateada</label>
     <br />
-    <input type="number" name="totalAmount" th:field="*{totalAmount}" id="txtTotalAmount" />
+    <input type="number" name="totalAmount" id="txtTotalAmount" />
+    <br />
+    <br />
+    <button type="submit">Gerar boletos</button>
 </form>
 
 </body>
