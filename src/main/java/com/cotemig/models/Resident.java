@@ -38,7 +38,7 @@ public class Resident {
     @Min(1)
     private int apartmentNumber;
 
-    @ManyToOne(targetEntity = Condo.class, optional = true)
+    @ManyToOne(targetEntity = Condo.class, optional = false)
     private Condo condo;
 
     @OneToMany(targetEntity = Fee.class)

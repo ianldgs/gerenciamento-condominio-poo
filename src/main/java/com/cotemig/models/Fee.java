@@ -26,10 +26,10 @@ public class Fee {
     @Column(nullable = false)
     private double paid = 0;
 
-    @ManyToOne(targetEntity = Resident.class)
+    @ManyToOne(targetEntity = Resident.class, optional = false)
     private Resident resident;
 
-    @ManyToOne(targetEntity = Condo.class)
+    @ManyToOne(targetEntity = Condo.class, optional = false)
     private Condo condo;
 
     //endregion
