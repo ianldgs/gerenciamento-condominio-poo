@@ -42,13 +42,12 @@ public class FeeController {
     }
 
     @PostMapping("/fee")
-    public String create(Condo condo, double totalAmount, BindingResult result) {
+    public String create(Condo condo, double totalAmount, int month, int year, BindingResult result) {
         if (result.hasErrors()) {
             return "fee/form";
         }
 
-//        feeService.divideTotalByResident();
-//        feeService.saveAndFlush(fee);
+        feeService.divideTotalByResident(condo, totalAmount, month, year);
 
         return "redirect:fees";
     }

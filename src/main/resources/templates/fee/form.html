@@ -9,7 +9,7 @@
     <label for="sltCondo">Condomínio</label>
     <br />
     <select id="sltCondo" th:field="*{condo}" >
-        <option th:each="condo : ${condos}" th:value="${condo.id}" th:text="|${condo.cnpj} - ${condo.name}|"></option>
+        <option th:each="condo : ${condos}" th:value="${condo}" th:text="|${condo.cnpj} - ${condo.name}|"></option>
     </select>
 
     <label for="txtMonth">Mês</label>
