@@ -37,6 +37,7 @@ public class ResidentController {
     @GetMapping("resident")
     public String createForm(Model model) {
         model.addAttribute("resident", new Resident());
+        model.addAttribute("condos", condoRepository.findAll());
         return "resident/form";
     }
 
