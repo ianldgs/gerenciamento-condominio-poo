@@ -7,6 +7,7 @@
     <title>Lista de Condôminos</title>
 </head>
 <body>
+    <div th:replace="fragments/menu :: menu"></div>
     <a th:href="@{/resident}">Novo Condômino</a>
     <table>
         <thead>
@@ -29,7 +30,9 @@
                 <td th:text="${resident.name}"></td>
                 <td th:text="${resident.apartmentNumber}"></td>
                 <td th:text="${resident.syndic ? 'Sim' : 'Não'}"></td>
-                <td th:text="${resident.condo != null ? resident.condo.id : '---'}"></td>
+                <td>
+                    <a th:text="${resident.condo.name}" th:href="@{/condo/{id}(id=${resident.condo.id})}"></a>
+                </td>
                 <td>
                     <form th:action="@{/resident/{id}(id=${resident.id})}" th:method="delete">
                         <button type="submit">Apagar</button>

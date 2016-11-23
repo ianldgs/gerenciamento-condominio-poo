@@ -1,10 +1,18 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+    <div th:replace="fragments/menu :: menu"></div>
+    <h1>Bem vindo ao sistema de gerenciamento de condomínio</h1>
+    <p>Desenvolvido por:</p>
+    <ul>
+        <li>Ian Luca</li>
+        <li>Matheus Elias</li>
+    </ul>
 </body>
 </html>

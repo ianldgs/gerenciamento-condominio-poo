@@ -7,6 +7,7 @@
     <title>Criação de Condôminos</title>
 </head>
 <body>
+    <div th:replace="fragments/menu :: menu"></div>
     <form th:action="@{/resident}" th:object="${resident}" method="post">
         <input id="txtId" type="hidden" th:if="${resident.id != 0}" th:field="*{id}" />
 
@@ -31,11 +32,9 @@
         <br />
 
         <label for="sltCondo">Condomínio</label>
-        <br />
         <select id="sltCondo" th:field="*{condo}" >
             <option th:each="condo : ${condos}" id="sltCondo" th:value="${condo.id}" th:text="|${condo.cnpj} - ${condo.name}|"></option>
         </select>
-
         <br />
 
         <button type="submit">Salvar</button>

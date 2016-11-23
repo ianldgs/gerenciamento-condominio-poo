@@ -40,10 +40,15 @@ public class LoginController {
 
         try {
             session.setAttribute("user", userService.login(email, password));
-            return "redirect:/residents";
+            return "redirect:/";
         } catch (InvalidEmailOrPasswordException e) {
             model.addAttribute("error", true);
             return "login";
         }
+    }
+
+    @GetMapping("/")
+    public String greet() {
+        return "greeting";
     }
 }
