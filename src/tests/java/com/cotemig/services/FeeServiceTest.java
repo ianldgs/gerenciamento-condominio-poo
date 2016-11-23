@@ -41,6 +41,15 @@ public class FeeServiceTest {
     }
 
     @Test
+    public void a() throws Exception {
+        assertEquals("2016/01", String.format("%1d/%02d", 2016, 1));
+        assertEquals("2016/10", String.format("%1d/%02d", 2016, 10));
+        assertEquals("0216/03", String.format("%04d/%02d", 216, 3));
+        assertEquals("0016/03", String.format("%04d/%02d", 16, 3));
+        assertEquals("0006/03", String.format("%04d/%02d", 6, 3));
+    }
+
+    @Test
     public void parseLine() throws Exception {
         String cnpj = "74713443000166";
         String cpf = "88360130663";

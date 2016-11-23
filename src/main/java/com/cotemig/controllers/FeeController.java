@@ -2,6 +2,7 @@ package com.cotemig.controllers;
 
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
+import com.cotemig.repositories.FeeRepository;
 import com.cotemig.services.CondoService;
 import com.cotemig.services.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,36 @@ public class FeeController {
     @Autowired
     CondoService condoService;
 
+    @Autowired
+    FeeRepository feeRepository;
+
+    @GetMapping("/fees")
+    public String list(Model model) {
+        model.addAttribute("fees", feeRepository.findAll());
+        return "fee/list";
+    }
+
+    @GetMapping("/fees/filter")
+    public String filter(Model model,
+                         @RequestParam("year") int year,
+                         @RequestParam("month") int month) {
+
+        model.addAttribute("fee",
+            feeRepository.findByDateWithFormat(
+                String.format("%04d/%02d", year, month),
+                "YYYY/MM"
+            )
+        );
+
+        return "fee/list";
+    }
+
     @GetMapping("/fee")
     public String feeForm(Model model) {
         model.addAttribute("fee", new Fee());
         model.addAttribute("condos", condoService.find());
 
         return "fee/form";
-    }
-
-    @GetMapping("/fees")
-    public String feeList(Model model) {
-        model.addAttribute("fee", new Fee());
-        return "fee";
     }
 
     @PostMapping("/fee")
