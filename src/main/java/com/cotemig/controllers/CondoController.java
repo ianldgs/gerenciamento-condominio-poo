@@ -27,7 +27,7 @@ public class CondoController {
         return "condo/list";
     }
 
-    @GetMapping("/condo}")
+    @GetMapping("/condo")
     public String createForm(Model model) {
         model.addAttribute("condo", new Condo());
         return "condo/form";
