@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,24 +26,30 @@ public class FeeService {
     @Autowired
     private FeeRepository repository;
 
-    public void divideTotalByResident(Condo condo, double totalAmount) {
+    public void divideTotalByResident(Condo condo, double totalAmount, int year, int month) {
         List<Resident> residentsList = condo.getResidents();
 
         double amountPerResident = totalAmount / residentsList.size();
         DecimalFormat formatAmountPerResident = new DecimalFormat("#.00");
         amountPerResident = Double.valueOf(formatAmountPerResident.format(amountPerResident));
 
-        Date date = new Date();
-
         SimpleDateFormat sdf = new SimpleDateFormat("MM/YYYY");
-        String monthAndYearNow = sdf.format(date);
+        Date monthAndYearNow = new Date();
+
+        if(month <= 12 && month >= 0 && year > 1900){
+            try {
+                monthAndYearNow = sdf.parse(month + "/" + year);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         for (Resident resident : residentsList) {
             Fee fee = new Fee();
             fee.setCondo(condo);
             fee.setResident(resident);
             fee.setValue(amountPerResident);
-            fee.setDueDate(date);
+            fee.setDueDate(monthAndYearNow);
 
             boolean feeExists = repository.findByCnpjAndCpfAndDateWithFormat(condo.getCnpj(), resident.getCpf(), sdf.format(fee.getDueDate()), "MM/YYYY") != null;
 

@@ -1,12 +1,15 @@
 package com.cotemig.controllers;
 
-import com.cotemig.repositories.FeeRepository;
 import com.cotemig.models.Fee;
 import com.cotemig.services.FeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.cotemig.repositories.FeeRepository;
+import com.cotemig.services.CondoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +26,32 @@ public class FeeController {
     @Autowired
     FeeService feeService;
 
-    @GetMapping("/fees")
+    @Autowired
+    CondoService condoService;
+
+    @GetMapping("/fee")
     public String feeForm(Model model) {
         model.addAttribute("fee", new Fee());
+        model.addAttribute("condos", condoService.find());
+
+        return "fee/form";
+    }
+
+    @GetMapping("/fees")
+    public String feeList(Model model) {
+        model.addAttribute("fee", new Fee());
         return "fee";
+    }
+
+    @PostMapping("/fee")
+    public String create(@Valid Fee fee, BindingResult result) {
+        if (result.hasErrors()) {
+            return "fee/form";
+        }
+
+        feeRepository.saveAndFlush(fee);
+
+        return "redirect:fees";
     }
 
     @GetMapping("/fees/confirm")

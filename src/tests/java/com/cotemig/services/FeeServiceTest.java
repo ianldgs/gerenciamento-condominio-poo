@@ -1,23 +1,28 @@
 package com.cotemig.services;
 
+import com.cotemig.ApplicationConfig;
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
 import com.cotemig.repositories.CondoRepository;
 import com.cotemig.repositories.FeeRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by Ian Luca on 06/11/2016.
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = ApplicationConfig.class)
 public class FeeServiceTest {
     @Autowired
     FeeService feeService;
@@ -120,7 +125,7 @@ public class FeeServiceTest {
 
         int previousTotalFeeRegistered = feeRepository.findAll().size();
 
-        feeService.divideTotalByResident(condo, totalAmount);
+        feeService.divideTotalByResident(condo, totalAmount, 1, 2015);
 
         int nowTotalFeeRegistered = feeRepository.findAll().size();
 

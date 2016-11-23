@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rateio entre os moradores do condomínio</title>
+</head>
+<body>
+<form  th:action="@{/fees/create}" th:object="${fee}" method="post">
+    <label for="sltCondo">Condomínio</label>
+    <br />
+    <select id="sltCondo" th:field="*{condo}" >
+        <option th:each="condo : ${condos}" th:value="${condo.id}" th:text="|${condo.cnpj} - ${condo.name}|"></option>
+    </select>
+
+    <label for="txtMonth">Mês</label>
+    <br />
+    <input type="number" name="month" th:field="*{month}" id="txtMonth" min="1" max="12" />
+    <br>
+    <label for="txtMonth">Ano</label>
+    <br />
+    <input type="year" name="month" th:field="*{year}" id="txtMonth" min="1900" />
+</form>
+
+</body>
+</html>
