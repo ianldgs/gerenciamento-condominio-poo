@@ -31,8 +31,6 @@ public class FeeService {
         List<Resident> residentsList = condo.getResidents();
 
         double amountPerResident = totalAmount / residentsList.size();
-        DecimalFormat formatAmountPerResident = new DecimalFormat("#.00");
-        amountPerResident = Double.parseDouble(formatAmountPerResident.format(amountPerResident));
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/YYYY");
         Date monthAndYearNow = new Date();
@@ -96,7 +94,10 @@ public class FeeService {
 
     public List<Fee> parseFile(MultipartFile mFile) throws IOException {
         File file = new File(mFile.getOriginalFilename());
-        mFile.transferTo(file);
+        file.createNewFile();
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(mFile.getBytes());
+        fos.close();
 
         return parseFile(file);
     }
