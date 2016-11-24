@@ -5,6 +5,7 @@
     <title>Rateio entre os moradores do condomínio</title>
 </head>
 <body>
+<div th:replace="fragments/menu :: menu"></div>
 <form th:action="@{/fee}" method="post">
     <label for="sltCondo">Condomínio</label>
     <br />
@@ -15,15 +16,15 @@
 
     <label for="txtMonth">Mês</label>
     <br />
-    <input type="number" name="month" id="txtMonth" min="1" max="12" />
+    <input type="number" name="month" id="txtMonth" min="1" max="12" required />
     <br />
     <label for="txtMonth">Ano</label>
     <br />
-    <input type="year" name="year" id="txtYear" min="1900" />
+    <input type="number" name="year" id="txtYear" min="1900" max="2020" required />
     <br />
     <label for="txtMonth">Quantia a ser rateada</label>
     <br />
-    <input type="number" name="totalAmount" id="txtTotalAmount" />
+    <input type="number" name="totalAmount" id="txtTotalAmount" required />
     <br />
     <br />
     <button type="submit">Gerar boletos</button>
