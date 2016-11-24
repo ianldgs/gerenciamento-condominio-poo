@@ -1,10 +1,12 @@
 package com.cotemig.services;
 
-import com.cotemig.ApplicationConfig;
+import com.cotemig.TestsConfig;
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
+import com.cotemig.models.Resident;
 import com.cotemig.repositories.CondoRepository;
 import com.cotemig.repositories.FeeRepository;
+import com.cotemig.repositories.ResidentRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +24,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfig.class)
+@ContextConfiguration(classes = TestsConfig.class)
 public class FeeServiceTest {
     @Autowired
     FeeService feeService;
@@ -33,11 +35,86 @@ public class FeeServiceTest {
     @Autowired
     CondoRepository condoRepository;
 
+    @Autowired
+    ResidentRepository residentRepository;
+
     @Before
     public void setUp() throws Exception {
-        feeService = new FeeService();
+        //mocks
+        registerFees();
+        divideTotalFeeByResident();
+    }
 
-        //TODO: criar aqui, o mock do banco referente ao arquivo mocks/fees.txt, para os finds funcionarem corretamente
+    public void registerFees() throws Exception {
+        Condo condo1 = new Condo();
+        condo1.setCnpj("08322257000171");
+        condo1.setName("teste1");
+
+        condoRepository.saveAndFlush(condo1);
+
+        Resident resident1 = new Resident();
+        resident1.setCondo(condo1);
+        resident1.setCpf("88360130663");
+        resident1.setName("teste1");
+        resident1.setSyndic(true);
+        resident1.setApartmentNumber(1);
+
+        residentRepository.saveAndFlush(resident1);
+
+        Resident resident2 = new Resident();
+        resident2.setCondo(condo1);
+        resident2.setCpf("57842567859");
+        resident2.setName("teste2");
+        resident2.setSyndic(false);
+        resident2.setApartmentNumber(2);
+
+        residentRepository.saveAndFlush(resident2);
+
+        Condo condo2 = new Condo();
+        condo2.setCnpj("54887826000143");
+        condo2.setName("teste2");
+
+        condoRepository.saveAndFlush(condo2);
+
+        Resident resident3 = new Resident();
+        resident3.setCondo(condo2);
+        resident3.setCpf("41496532406");
+        resident3.setName("teste3");
+        resident3.setSyndic(true);
+        resident3.setApartmentNumber(1);
+
+        residentRepository.saveAndFlush(resident3);
+
+        Resident resident4 = new Resident();
+        resident4.setCondo(condo2);
+        resident4.setCpf("03397790719");
+        resident4.setName("teste4");
+        resident4.setSyndic(true);
+        resident4.setApartmentNumber(1);
+
+        residentRepository.saveAndFlush(resident4);
+    }
+
+    public void divideTotalFeeByResident() throws Exception {
+        Condo condo1 = condoRepository.findByCnpj("08322257000171");
+        assertNotNull(condo1);
+
+        assertNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "88360130663", "2017/01", "YYYY/MM"));
+        assertNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "57842567859", "2017/01", "YYYY/MM"));
+
+        feeService.divideTotalByResident(condo1, 1000, 2017, 1);
+        assertNotNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "88360130663", "2017/01", "YYYY/MM"));
+        assertNotNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "57842567859", "2017/01", "YYYY/MM"));
+
+        Condo condo2 = condoRepository.findByCnpj("54887826000143");
+        assertNotNull(condo2);
+
+        assertNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "41496532406", "2016/12", "YYYY/MM"));
+        assertNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "03397790719", "2016/12", "YYYY/MM"));
+
+        feeService.divideTotalByResident(condo2, 1000, 2016, 12);
+        assertNotNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "41496532406", "2016/12", "YYYY/MM"));
+        assertNotNull(feeRepository.findByCnpjAndCpfAndDateWithFormat("08322257000171", "03397790719", "2016/12", "YYYY/MM"));
     }
 
     @Test
@@ -51,11 +128,11 @@ public class FeeServiceTest {
 
     @Test
     public void parseLine() throws Exception {
-        String cnpj = "74713443000166";
+        String cnpj = "08322257000171";
         String cpf = "88360130663";
-        String month = "11";
-        String year = "2014";
-        String paid = "10030059";
+        String month = "01";
+        String year = "2017";
+        String paid = "0001000";
 
         Fee fee = feeService.parseLine(cnpj + cpf + month + year + paid);
 
@@ -121,23 +198,5 @@ public class FeeServiceTest {
 
         assertNotNull(fee.getResident());
         assertEquals("03397790719", fee.getResident().getCpf());
-    }
-
-    @Test
-    public void testDivideTotalFeeByResident() throws Exception {
-        String cnpj = "24985875000158";
-        float totalAmount = 1000;
-
-        Condo condo = condoRepository.findByCnpj(cnpj);
-
-        assertNotNull(condo);
-
-        int previousTotalFeeRegistered = feeRepository.findAll().size();
-
-        feeService.divideTotalByResident(condo, totalAmount, 1, 2015);
-
-        int nowTotalFeeRegistered = feeRepository.findAll().size();
-
-        assertNotEquals(previousTotalFeeRegistered, nowTotalFeeRegistered);
     }
 }
