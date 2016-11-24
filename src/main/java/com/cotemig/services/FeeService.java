@@ -26,17 +26,18 @@ public class FeeService {
     @Autowired
     private FeeRepository repository;
 
+    @Transactional
     public void divideTotalByResident(Condo condo, double totalAmount, int year, int month) {
         List<Resident> residentsList = condo.getResidents();
 
         double amountPerResident = totalAmount / residentsList.size();
         DecimalFormat formatAmountPerResident = new DecimalFormat("#.00");
-        amountPerResident = Double.valueOf(formatAmountPerResident.format(amountPerResident));
+        amountPerResident = Double.parseDouble(formatAmountPerResident.format(amountPerResident));
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/YYYY");
         Date monthAndYearNow = new Date();
 
-        if(month <= 12 && month >= 0 && year > 1900){
+        if (month <= 12 && month > 0 && year > 1900) {
             try {
                 monthAndYearNow = sdf.parse(month + "/" + year);
             } catch (ParseException e) {
@@ -53,12 +54,10 @@ public class FeeService {
 
             boolean feeExists = repository.findByCnpjAndCpfAndDateWithFormat(condo.getCnpj(), resident.getCpf(), sdf.format(fee.getDueDate()), "MM/YYYY") != null;
 
-            if(feeExists){
+            if (!feeExists) {
                 repository.save(fee);
             }
         }
-
-        repository.flush();
     }
 
     public Fee parseLine(String line) {

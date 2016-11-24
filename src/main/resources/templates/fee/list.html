@@ -1,36 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Condomínio - Lista</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lista de Condôminos</title>
 </head>
 <body>
-<a th:href="@{/condo}">Novo Condomínio</a>
+<div th:replace="fragments/menu :: menu"></div>
+<a th:href="@{/fee}">Rateio</a>
+<form th:action="@{/fees/filter}">
+    <input type="number" name="year" placeholder="Ano" min="1900" max="2020" />
+    <input type="number" name="month" placeholder="Mês" min="1" max="31" />
+    <button type="submit">Filtrar</button>
+</form>
 <table>
     <thead>
     <tr>
         <th>ID</th>
+        <th>Condomínio</th>
+        <th>Condômino</th>
+        <th>Data</th>
         <th>Valor</th>
-        <th>Mês/Ano</th>
-        <th></th>
+        <th>Pago</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="condo : ${condos}">
+    <tr th:each="fee : ${fees}">
+        <td th:text="${fee.id}"></td>
         <td>
-            <a th:text="${condo.id}" th:href="@{/condo/{id}(id=${condo.id})}"></a>
+            <a th:text="${fee.resident.name}" th:href="@{/resident/{id}(id=${fee.resident.id})}"></a>
         </td>
-        <td th:text="${condo.cnpj}"></td>
-        <td th:text="${condo.name}"></td>
         <td>
-            <form th:action="@{/condo/{id}(id=${condo.id})}" th:method="delete">
-                <button type="submit">Apagar</button>
-            </form>
+            <a th:text="${fee.condo.name}" th:href="@{/condo/{id}(id=${fee.condo.id})}"></a>
         </td>
+        <td th:text="${fee.dueDate}"></td>
+        <td th:text="${fee.value}"></td>
+        <td th:text="${fee.paid}"></td>
     </tr>
-    <tr th:if="${#lists.isEmpty(c)}">
+    <tr th:if="${#lists.isEmpty(fees)}">
         <td colspan="7">
-            Nenhum boleto cadastrado
+            Nenhuma despesa encontrada
         </td>
     </tr>
     </tbody>

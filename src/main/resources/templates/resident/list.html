@@ -8,39 +8,40 @@
 </head>
 <body>
     <div th:replace="fragments/menu :: menu"></div>
-    <a th:href="@{/fee}">Rateio</a>
-    <form th:action="@{/fees/filter}">
-        <input type="number" name="year" placeholder="Ano" min="1900" max="2020">
-        <input type="number" name="month" placeholder="Mês" min="1" max="31">
-        <button type="submit">Filtrar</button>
-    </form>
+    <a th:href="@{/resident}">Novo Condômino</a>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Apartamento</th>
+                <th>É Síndico</th>
                 <th>Condomínio</th>
-                <th>Condômino</th>
-                <th>Data</th>
-                <th>Valor</th>
-                <th>Pago</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="fee : ${fees}">
-                <td th:text="${fee.id}"></td>
+            <tr th:each="resident : ${residents}">
                 <td>
-                    <a th:text="${fee.resident.name}" th:href="@{/resident/{id}(id=${fee.resident.id})}"></a>
+                    <a th:text="${resident.id}" th:href="@{/resident/{id}(id=${resident.id})}"></a>
+                </td>
+                <td th:text="${resident.cpf}"></td>
+                <td th:text="${resident.name}"></td>
+                <td th:text="${resident.apartmentNumber}"></td>
+                <td th:text="${resident.syndic ? 'Sim' : 'Não'}"></td>
+                <td>
+                    <a th:text="${resident.condo.name}" th:href="@{/condo/{id}(id=${resident.condo.id})}"></a>
                 </td>
                 <td>
-                    <a th:text="${fee.condo.name}" th:href="@{/condo/{id}(id=${fee.condo.id})}"></a>
+                    <form th:action="@{/resident/{id}(id=${resident.id})}" th:method="delete">
+                        <button type="submit">Apagar</button>
+                    </form>
                 </td>
-                <td th:text="${fee.dueDate}"></td>
-                <td th:text="${fee.value}"></td>
-                <td th:text="${fee.paid}"></td>
             </tr>
-            <tr th:if="${#lists.isEmpty(fees)}">
+            <tr th:if="${#lists.isEmpty(residents)}">
                 <td colspan="7">
-                    Nenhuma despesa encontrada
+                    Nenhumn condômino cadastrado
                 </td>
             </tr>
         </tbody>

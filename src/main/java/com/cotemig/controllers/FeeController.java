@@ -1,7 +1,6 @@
 package com.cotemig.controllers;
 
 import com.cotemig.models.Condo;
-import com.cotemig.models.Fee;
 import com.cotemig.repositories.CondoRepository;
 import com.cotemig.repositories.FeeRepository;
 import com.cotemig.services.CondoService;
@@ -9,7 +8,6 @@ import com.cotemig.services.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,15 +62,10 @@ public class FeeController {
     }
 
     @PostMapping("/fee")
-    public String create(Model model,
-                         @RequestParam("condoId") int condoId,
+    public String create(@RequestParam("condoId") int condoId,
                          @RequestParam("totalAmount") double totalAmount,
                          @RequestParam("month") int month,
-                         @RequestParam("year") int year,
-                         BindingResult result) {
-        if (result.hasErrors()) {
-            return "fee/form";
-        }
+                         @RequestParam("year") int year) {
 
         Condo condo = condoRepository.findOne(condoId);
 
