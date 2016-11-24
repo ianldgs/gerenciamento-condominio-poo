@@ -45,31 +45,16 @@ public class FeeRepositoryTest {
         assertEquals(0, feeRepository.findAll().size());
     }
 
-    public int save() throws Exception {
-        Fee fee = new Fee();
-
-        fee.setValue(500);
-
-        assertEquals(0, fee.getId());
-
-        feeRepository.saveAndFlush(fee);
-
-        assertNotEquals(0, fee.getId());
-        assertEquals(1, feeRepository.count());
-
-        return fee.getId();
-    }
-
     @Test
     public void count() throws Exception {
-        save();
+        saveWithRelations();
 
         assertEquals(1, feeRepository.count());
     }
 
     @Test
     public void findOne() throws Exception {
-        Fee fee = feeRepository.findOne(save());
+        Fee fee = feeRepository.findOne(saveWithRelations());
 
         assertNotNull(fee);
 
@@ -77,8 +62,7 @@ public class FeeRepositoryTest {
         assertEquals(500, fee.getValue(), .1);
     }
 
-    @Test
-    public void saveWithRelations() throws Exception {
+    public int saveWithRelations() throws Exception {
         Condo condo = new Condo();
         condo.setName("Residencial Canadá");
         condo.setCnpj("123");
@@ -114,6 +98,8 @@ public class FeeRepositoryTest {
         assertNotEquals(0, fee.getId());
 
         assertEquals(1, feeRepository.count());
+
+        return fee.getId();
     }
 
     @Test
