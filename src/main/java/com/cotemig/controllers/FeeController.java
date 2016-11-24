@@ -69,7 +69,7 @@ public class FeeController {
 
         Condo condo = condoRepository.findOne(condoId);
 
-        feeService.divideTotalByResident(condo, totalAmount, month, year);
+        feeService.divideTotalByResident(condo, totalAmount, year, month);
 
         return "redirect:fees";
     }
