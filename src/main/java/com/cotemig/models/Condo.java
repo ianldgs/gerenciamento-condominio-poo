@@ -22,13 +22,10 @@ public class Condo {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    @OneToMany(targetEntity = Resident.class)
+    @OneToMany(targetEntity = Resident.class, mappedBy = "condo")
     private List<Resident> residents;
 
-    @Column(nullable = false)
-    @OneToMany(targetEntity = Fee.class)
-    @JoinColumn
+    @OneToMany(targetEntity = Fee.class, mappedBy = "condo")
     private List<Fee> fees;
 
     //endregion
