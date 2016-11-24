@@ -87,6 +87,7 @@ public class FeeController {
             return "fee/confirm";
         }
         catch (IOException e) {
+            e.printStackTrace();
             model.addAttribute("message", "Ocorreu um erro ao ler o arquivo.");
             return "fee/confirm";
         }
