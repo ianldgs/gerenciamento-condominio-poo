@@ -9,9 +9,10 @@
 <body>
 <div th:replace="fragments/menu :: menu"></div>
 <a th:href="@{/fee}">Rateio</a>
+<a th:href="@{/fees/confirm}">Confirmação</a>
 <form th:action="@{/fees/filter}">
     <input type="number" name="year" placeholder="Ano" min="1900" max="2020" />
-    <input type="number" name="month" placeholder="Mês" min="1" max="31" />
+    <input type="number" name="month" placeholder="Mês" min="1" max="12" />
     <button type="submit">Filtrar</button>
 </form>
 <table>
