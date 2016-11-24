@@ -1,16 +1,16 @@
 package com.cotemig;
 
 import com.cotemig.interceptors.AuthInterceptor;
-import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -24,18 +24,20 @@ import java.sql.SQLException;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-@EnableWebMvc
-public class ApplicationConfig extends WebMvcConfigurerAdapter {
+public class TestsConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource dataSource() throws SQLException {
-        OracleDataSource dataSource = new OracleDataSource();
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+
+        /*OracleDataSource dataSource = new OracleDataSource();
         dataSource.setUser("a71500111");
         dataSource.setPassword("a71500111");
         dataSource.setURL("jdbc:oracle:thin:@//cau.cotemig.com.br:1521");
         dataSource.setImplicitCachingEnabled(true);
         dataSource.setFastConnectionFailoverEnabled(true);
 
-        return dataSource;
+        return dataSource;*/
     }
 
     @Bean

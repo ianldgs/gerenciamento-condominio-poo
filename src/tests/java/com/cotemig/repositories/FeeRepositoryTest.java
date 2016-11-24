@@ -1,6 +1,6 @@
 package com.cotemig.repositories;
 
-import com.cotemig.ApplicationConfig;
+import com.cotemig.TestsConfig;
 import com.cotemig.models.Condo;
 import com.cotemig.models.Fee;
 import com.cotemig.models.Resident;
@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +20,7 @@ import static org.junit.Assert.*;
  * Created by Ian Luca on 19/11/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfig.class)
+@ContextConfiguration(classes = TestsConfig.class)
 public class FeeRepositoryTest {
     @Autowired
     FeeRepository feeRepository;
@@ -119,8 +120,18 @@ public class FeeRepositoryTest {
     public void findByCnpjAndCpfAndDateWithFormat() throws Exception {
         saveWithRelations();
 
-        Fee fee = feeRepository.findByCnpjAndCpfAndDateWithFormat("123", "12312312387", "09/2016", "MM/YYYY");
+        Fee fee = feeRepository.findByCnpjAndCpfAndDateWithFormat("123", "12312312387", "11/2016", "MM/YYYY");
 
         assertNotNull(fee);
+    }
+
+    @Test
+    public void findByDateWithFormat() throws Exception {
+        saveWithRelations();
+
+        List<Fee> fees = feeRepository.findByDateWithFormat("11/2016", "MM/YYYY");
+
+        assertNotNull(fees);
+        assertEquals(1, fees.size());
     }
 }
