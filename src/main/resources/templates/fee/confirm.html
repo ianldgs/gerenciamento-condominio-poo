@@ -8,7 +8,7 @@
 </head>
 <body>
     <div th:replace="fragments/menu :: menu"></div>
-    <form th:action="@{/fees/confirm}" method="post">
+    <form th:action="@{/fees/confirm}" method="post" enctype="multipart/form-data">
         <div th:if="${message}">
             <p th:text="${message}"></p>
         </div>
