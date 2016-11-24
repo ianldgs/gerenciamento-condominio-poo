@@ -40,6 +40,10 @@ public class Fee {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public double getValue() {
         return value;
     }
