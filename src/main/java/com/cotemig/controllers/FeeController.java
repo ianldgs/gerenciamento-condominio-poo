@@ -44,10 +44,10 @@ public class FeeController {
                          @RequestParam("year") int year,
                          @RequestParam("month") int month) {
 
-        model.addAttribute("fee",
+        model.addAttribute("fees",
             feeRepository.findByDateWithFormat(
-                String.format("%04d/%02d", year, month),
-                "YYYY/MM"
+                String.format("%02d/%04d", month, year),
+                "MM/YYYY"
             )
         );
 
